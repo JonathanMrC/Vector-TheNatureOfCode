@@ -31,10 +31,9 @@ namespace Vector
         {
             g.Clear(Color.White);
             g.FillEllipse(Brushes.Black, mid.x - radio, mid.y - radio, radio * 2, radio * 2);
-            dif = new vector(e.X, e.Y) - mid;
-            if (e.X <= mid.x) dif *= 2;
-            else dif *= (float)0.5;
-            g.DrawLine(new Pen(Color.Black, 2), mid.x, mid.y, mid.x + dif.x, mid.y + dif.y);
+            dif = new vector(e.X, e.Y);
+            dif.setMagnitud(50);
+            g.DrawRectangle(new Pen(Color.Black, 2), mid.x, mid.y, dif.x, dif.y);
             picbox.Refresh();
         }
     }
