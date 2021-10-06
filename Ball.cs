@@ -19,14 +19,8 @@ namespace Vector
             => new vector(a.x + b.x, a.y + b.y);
         public static vector operator -(vector a, vector b)
             => new vector(a.x - b.x, a.y - b.y);
-        public static vector operator *(vector a, vector b)
-            => new vector(a.x * b.x, a.y * b.y);
-        public static vector operator /(vector a, vector b)
-        {
-            if (b.x == 0 || b.y == 0) return new vector(-1, -1);
-            return new vector(a.x / b.x, a.y / b.y);
-        }
-
+        public static vector operator *(vector a, float scalar)
+            => new vector(a.x * scalar, a.y * scalar);
         public override string ToString() => "" +  + this.x + " , " + this.y;
 
     }

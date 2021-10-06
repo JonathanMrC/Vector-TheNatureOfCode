@@ -14,30 +14,27 @@ namespace Vector
     {
         Graphics g;
         Bitmap btmp;
-        Ball b1;
+        vector mid, dif;
+        readonly int radio;
         public Form1()
         {
             InitializeComponent();
             btmp = new Bitmap(picbox.Width, picbox.Height);
             g = Graphics.FromImage(btmp);
             picbox.Image = btmp;
-            b1 = new Ball(picbox.Width, picbox.Height, 5, 5);
+            radio = 5;
+            mid = new vector(picbox.Width / 2, picbox.Height / 2);
+            g.FillEllipse(Brushes.Black, mid.x - radio, mid.y - radio, radio*2, radio*2);
         }
 
-        private void PlayPause(object sender, MouseEventArgs e)
+        private void picbox_MouseMove(object sender, MouseEventArgs e)
         {
-            if (timer.Enabled) timer.Stop();
-            else timer.Start();
-        }
-
-        private void Tick(object sender, EventArgs e)
-        {
-            b1.Move();
             g.Clear(Color.White);
-            g.FillEllipse(Brushes.Blue,
-                (b1.posAct.x - b1.radio), 
-                (b1.posAct.y - b1.radio), 
-                b1.radio * 2, b1.radio * 2);
+            g.FillEllipse(Brushes.Black, mid.x - radio, mid.y - radio, radio * 2, radio * 2);
+            dif = new vector(e.X, e.Y) - mid;
+            if (e.X <= mid.x) dif *= 2;
+            else dif *= (float)0.5;
+            g.DrawLine(new Pen(Color.Black, 2), mid.x, mid.y, mid.x + dif.x, mid.y + dif.y);
             picbox.Refresh();
         }
     }

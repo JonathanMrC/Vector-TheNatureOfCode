@@ -29,9 +29,7 @@ namespace Vector
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.picbox = new System.Windows.Forms.PictureBox();
-            this.timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.picbox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,11 +42,7 @@ namespace Vector
             this.picbox.Size = new System.Drawing.Size(800, 450);
             this.picbox.TabIndex = 0;
             this.picbox.TabStop = false;
-            this.picbox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PlayPause);
-            // 
-            // timer
-            // 
-            this.timer.Tick += new System.EventHandler(this.Tick);
+            this.picbox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseMove);
             // 
             // Form1
             // 
@@ -66,7 +60,6 @@ namespace Vector
         #endregion
 
         private System.Windows.Forms.PictureBox picbox;
-        private System.Windows.Forms.Timer timer;
     }
 }
 
