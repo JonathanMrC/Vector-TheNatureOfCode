@@ -6,54 +6,45 @@ using System.Threading.Tasks;
 
 namespace Vector
 {
-    public struct vector
-    {
-        public float x, y;
-        public vector(float _x = 0, float _y = 0)
-        {
-            x = _x;
-            y = _y;
-        }
-
-        public static vector operator +(vector a, vector b)
-            => new vector(a.x + b.x, a.y + b.y);
-        public static vector operator -(vector a, vector b)
-            => new vector(a.x - b.x, a.y - b.y);
-        public static vector operator *(vector a, vector b)
-            => new vector(a.x * b.x, a.y * b.y);
-        public static vector operator /(vector a, vector b)
-        {
-            if (b.x == 0 || b.y == 0) return new vector(-1, -1);
-            return new vector(a.x / b.x, a.y / b.y);
-        }
-
-        public override string ToString() => "" +  + this.x + " , " + this.y;
-
-    }
     public class Ball
     {
         public vector posAct;
         public int radio;
-        vector speed, limits;
+        float lim;
+        Random ran;
+        vector speed, limits, aceleracion;
         
-        public Ball(float W = 0, float H = 0, float spx = 0, float spy = 0, int r = 5)
+        public Ball(float W = 0, float H = 0, float spx = 0, float spy = 0, float acelx = 0, float acely = 0, int r = 5, float lim = -1)
         {
             posAct = new vector (W/2, H/2);
             speed = new vector (spx, spy);
+            aceleracion = new vector (acelx, acely);
             limits = new vector (W, H);
+            this.lim = lim;
+            ran = new Random();
             radio = r;
         }
 
         public void Move()
         {
+            float x = (float)ran.NextDouble();
+            float y = (float)ran.NextDouble();
+            if (ran.Next(10) < 5) x = -x;
+            if (ran.Next(10) < 5) y = -y;
+            aceleracion = new vector(x, y);
             posAct += speed;
-            Bounce();
+            speed += aceleracion;
+            if(lim != -1)
+                speed.Limitar(lim);
+            Edge();
         }
 
-        public void Bounce()
+        public void Edge()
         {
-            if ((posAct.x+radio) >= limits.x || (posAct.x-radio) < 0) speed.x = -speed.x;
-            if ((posAct.y+radio) >= limits.y || (posAct.y-radio) < 0) speed.y = -speed.y;
+            if(posAct.x > limits.x)posAct.x = 0;
+            if(posAct.y > limits.y)posAct.y = 0;
+            if(posAct.x < 0)posAct.x = limits.x;
+            if(posAct.y < 0)posAct.y = limits.y;
         }
 
     }

@@ -48,6 +48,7 @@ namespace Vector
             // 
             // timer
             // 
+            this.timer.Interval = 10;
             this.timer.Tick += new System.EventHandler(this.Tick);
             // 
             // Form1

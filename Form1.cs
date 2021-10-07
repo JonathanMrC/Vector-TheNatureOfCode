@@ -14,14 +14,17 @@ namespace Vector
     {
         Graphics g;
         Bitmap btmp;
-        Ball b1;
+        Ball b1, b2, b3;
         public Form1()
         {
             InitializeComponent();
             btmp = new Bitmap(picbox.Width, picbox.Height);
             g = Graphics.FromImage(btmp);
             picbox.Image = btmp;
-            b1 = new Ball(picbox.Width, picbox.Height, 5, 5);
+            //b1 = new Ball(W : picbox.Width, H : picbox.Height, spx: 5, spy:5, acelx: (float)0.01, acely: (float)0.005, r:10);
+            b1 = new Ball(W: picbox.Width, H: picbox.Height, spy: 5, r: 10, lim:10);
+            //b2 = new Ball(W: picbox.Width, H: picbox.Height, r: 20, lim: 5);
+            //b3 = new Ball(W: picbox.Width, H: picbox.Height, spx:10, r: 30, lim:(float)7.5);
         }
 
         private void PlayPause(object sender, MouseEventArgs e)
@@ -33,12 +36,21 @@ namespace Vector
         private void Tick(object sender, EventArgs e)
         {
             b1.Move();
+            //b2.Move();
+            //b3.Move();
             g.Clear(Color.White);
-            g.FillEllipse(Brushes.Blue,
-                (b1.posAct.x - b1.radio), 
-                (b1.posAct.y - b1.radio), 
-                b1.radio * 2, b1.radio * 2);
+            Draw(b1);
+            //Draw(b2);
+            //Draw(b3);
             picbox.Refresh();
+        }
+
+        void Draw(Ball b)
+        {
+            g.FillEllipse(Brushes.Blue,
+                (b.posAct.x - b.radio),
+                (b.posAct.y - b.radio),
+                b.radio * 2, b.radio * 2);
         }
     }
 }
