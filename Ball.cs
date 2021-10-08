@@ -25,18 +25,17 @@ namespace Vector
             radio = r;
         }
 
-        public void Move()
+        public void Move(vector mouse, bool limites = true)
         {
-            float x = (float)ran.NextDouble();
-            float y = (float)ran.NextDouble();
-            if (ran.Next(10) < 5) x = -x;
-            if (ran.Next(10) < 5) y = -y;
-            aceleracion = new vector(x, y);
+            vector dif = mouse - posAct;
+            dif.setMagnitud((float)1);
+            aceleracion = dif;
             posAct += speed;
             speed += aceleracion;
             if(lim != -1)
                 speed.Limitar(lim);
-            Edge();
+            if(limites) 
+                Edge();
         }
 
         public void Edge()
